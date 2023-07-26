@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TestRepository extends JpaRepository<TestEntity, Long> {
 
-	@Query("SELECT t from TestEntity AS t WHERE t.testEnum = :#{#dto.testEnum} OR (t.testEnum IS NULL AND :#{#dto.testEnum} IS NULL)")
+	@Query("SELECT t from TestEntity AS t WHERE (t.testEnum IS NULL AND :#{#dto.testEnum} IS NULL)")
 	List<TestEntity> findAllFilteringEnumValue(@Param("dto") Dto dto);
 
 }
