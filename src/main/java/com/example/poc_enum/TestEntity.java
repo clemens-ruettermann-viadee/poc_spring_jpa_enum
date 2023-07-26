@@ -1,5 +1,6 @@
 package com.example.poc_enum;
 
+//import javax.persistence.*;
 import jakarta.persistence.*;
 
 @Entity

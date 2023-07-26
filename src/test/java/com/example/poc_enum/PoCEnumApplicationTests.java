@@ -19,7 +19,6 @@ class PoCEnumApplicationTests {
 	@BeforeEach
 	void setUp() {
 		TestEntity entity1 = new TestEntity();
-		entity1.setTestEnum(TestEnum.VALUE_1);
 		TestEntity entity2 = new TestEntity();
 		entity2.setTestEnum(TestEnum.VALUE_2);
 	 	testRepository.save(entity1);
@@ -29,11 +28,15 @@ class PoCEnumApplicationTests {
 	@Test
 	void contextLoads() {
 		Dto dto = new Dto();
-		dto.setTestEnum(TestEnum.VALUE_1);
+		dto.setTestEnum(null);
 		List<TestEntity> allFilteringEnumValue = testRepository.findAllFilteringEnumValue(dto);
 
 		assertEquals(1, allFilteringEnumValue.size());
-		assertTrue(allFilteringEnumValue.stream().allMatch(testEntity -> testEntity.getTestEnum() == TestEnum.VALUE_1));
+		assertTrue(allFilteringEnumValue.stream().allMatch(testEntity -> testEntity.getTestEnum() == null));
+
+
+		dto.setTestEnum(TestEnum.VALUE_1);
+		assertTrue(testRepository.findAllFilteringEnumValue(dto).isEmpty());
 	}
 
 }
